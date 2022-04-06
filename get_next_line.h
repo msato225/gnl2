@@ -6,7 +6,7 @@
 /*   By: event <event@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 20:54:05 by event             #+#    #+#             */
-/*   Updated: 2022/04/05 21:06:12 by event            ###   ########.fr       */
+/*   Updated: 2022/04/06 18:06:23 by event            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,6 @@ char	*ft_save(char *save);
 char	*read_line(int fd, char *res);
 char	*get_next_line(int fd);
 
-# define BUFFER_SIZE 1024
+// # define BUFFER_SIZE 1024
 
 #endif

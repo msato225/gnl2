@@ -6,11 +6,65 @@
 /*   By: event <event@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 20:53:50 by event             #+#    #+#             */
-/*   Updated: 2022/04/05 21:37:42 by event            ###   ########.fr       */
+/*   Updated: 2022/04/06 18:02:16 by event            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+char	*get_line(char *fp)
+{
+	int		i;
+	char	*heap;
+
+	i = 0;
+	if (!fp[i])
+		return (NULL);
+	while (fp[i] && fp[i] != '\n')
+		i++;
+	heap = (char *)malloc(sizeof(char) * (i + 2));
+	if (!heap)
+		return (NULL);
+	i = 0;
+	while (fp[i] && fp[i] != '\n')
+	{
+		heap[i] = fp[i];
+		i++;
+	}
+	if (fp[i] == '\n')
+	{
+		heap[i] = fp[i];
+		i++;
+	}
+	heap[i] = '\0';
+	return (heap);
+}
+
+char	*ft_save(char *save)
+{
+	int		i;
+	int		c;
+	char	*s;
+
+	i = 0;
+	while (save[i] && save[i] != '\n')
+		i++;
+	if (!save[i])
+	{
+		free(save);
+		return (NULL);
+	}
+	s = (char *)malloc(sizeof(char) * (ft_strlen(save) - i + 1));
+	if (!s)
+		return (NULL);
+	i++;
+	c = 0;
+	while (save[i])
+		s[c++] = save[i++];
+	s[c] = '\0';
+	free(save);
+	return (s);
+}
 
 void	tmp_line(char *tmp, char *res, char	*buff)
 {		
@@ -39,6 +93,7 @@ char	*read_line(int fd, char *res)
 			return (NULL);
 		}
 		buff[bytes] = '\0';
+		tmp = NULL;
 		if (res != NULL)
 			tmp_line(tmp, res, buff);
 		else
@@ -61,21 +116,4 @@ char	*get_next_line(int fd)
 	line = get_line(save);
 	save = ft_save(save);
 	return (line);
-}
-
-int main ()
-{
-    char    *line;
-    int     fd;
-
-    line = NULL;
-    fd = open("./test.c", O_RDONLY);
-    line = get_next_line(fd);
-    while(line)
-    {
-        printf("%s", line);
-        line = get_next_line(fd);
-    }
-    close(fd);
-    return 0;
 }
