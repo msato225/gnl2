@@ -36,6 +36,6 @@ char	*ft_save(char *save);
 char	*read_line(int fd, char *res);
 char	*get_next_line(int fd);
 
-// # define BUFFER_SIZE 1024
+# define BUFFER_SIZE 1024
 
 #endif

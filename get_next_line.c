@@ -66,19 +66,22 @@ char	*ft_save(char *save)
 	return (s);
 }
 
-void	tmp_line(char *tmp, char *res, char	*buff)
+char	*tmp_line(char *res, char *buff)
 {		
+	char	*tmp;
+
 	tmp = ft_strdup(res);
 	free(res);
 	res = NULL;
 	res = ft_strjoin(tmp, buff);
+	free(tmp);
+	return (res);
 }
 
 char	*read_line(int fd, char *res)
 {
 	char	*buff;
 	int		bytes;
-	char	*tmp;
 
 	buff = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buff)
@@ -93,9 +96,8 @@ char	*read_line(int fd, char *res)
 			return (NULL);
 		}
 		buff[bytes] = '\0';
-		tmp = NULL;
 		if (res != NULL)
-			tmp_line(tmp, res, buff);
+			res = tmp_line(res, buff);
 		else
 			res = ft_strdup(buff);
 	}
@@ -117,3 +119,26 @@ char	*get_next_line(int fd)
 	save = ft_save(save);
 	return (line);
 }
+
+/*
+int main(int argc, char **argv)
+{
+	int fd;
+	char *line;
+
+	if (argc != 2)
+		return (0);
+	line = NULL;
+	fd = open(argv[1], O_RDONLY);
+	line = get_next_line(fd);
+	while(line)
+	{
+		printf("%s", line);
+		free(line);
+		line = get_next_line(fd);
+	}
+	close(fd);
+	system("leaks a.out");
+	return 0;
+}
+*/
